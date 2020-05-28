@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const nodemailer = require('nodemailer')
 const app = express()
 const path = require('path')
+const PORT = process.env.PORT || 3001
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
@@ -47,27 +48,17 @@ app.use('/api/form', (req,res) => {
           }); 
     })
 })
-app.use(express.static(path.join('./whole-cell-online-site/build')))
 
-app.get('*', function(_, res) {
-  res.sendFile(path.join(__dirname, './whole-cell-online-site/build/index.html'), function(err) {
-    if (err) {
-      res.status(500).send(err)
-    }
+//serve static assets if in production
+if(process.env.NODE_ENV === 'production'){
+  //set static folder
+  app.use(express.static('whole-cell-online-site/build'))
+
+  app.get('*', (req,res) => {
+    res.sendFile(path.join(__dirname, 'whole-cell-online-site', 'build', 'index.html'))
   })
-})
+}
 
-// //serve static assets if in production
-// if(process.env.NODE_ENV === 'production'){
-//   //set static folder
-//   app.use(express.static('whole-cell-online-site/build'))
-
-//   app.get('*', (req,res) => {
-//     res.sendFile(path.resolve(__dirname, 'whole-cell-online-site', 'build', 'index.html'))
-//   })
-// }
-
-const PORT = process.env.PORT || 3001
 
 app.listen(PORT, () => {
     console.log('server listening on port ' + PORT)

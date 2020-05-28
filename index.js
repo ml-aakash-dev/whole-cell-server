@@ -48,14 +48,20 @@ app.use('/api/form', (req,res) => {
     })
 })
 
+app.use(express.static('whole-cell-online-site/build'))
+
+  app.get('*', (req,res) => {
+    res.sendFile(path.resolve(__dirname, 'whole-cell-online-site', 'build', 'index.html'))
+  })
+
 //serve static assets if in production
 if(process.env.NODE_ENV === 'production'){
   //set static folder
-  app.use(express.static(path.join(__dirname, '/whole-cell-online-site/build')));
+  app.use(express.static('whole-cell-online-site/build'))
 
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname + '/whole-cell-online-site/build/index.html'));
-  });
+  app.get('*', (req,res) => {
+    res.sendFile(path.resolve(__dirname, 'whole-cell-online-site', 'build', 'index.html'))
+  })
 }
 
 const PORT = process.env.PORT || 3001

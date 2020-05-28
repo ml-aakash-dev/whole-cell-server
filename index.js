@@ -4,8 +4,10 @@ const nodemailer = require('nodemailer')
 const app = express()
 const path = require('path')
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: false}))
+// app.use(bodyParser.json())
+// app.use(bodyParser.urlencoded({extended: false}))
+app.use(express.json());
+app.use(express.urlencoded({extended: true})); 
 
 app.use('/api/form', (req,res) => {
     nodemailer.createTestAccount((err,account) => {

@@ -4,10 +4,8 @@ const nodemailer = require('nodemailer')
 const app = express()
 const path = require('path')
 
-// app.use(bodyParser.json())
-// app.use(bodyParser.urlencoded({extended: false}))
-app.use(express.json());
-app.use(express.urlencoded({extended: true})); 
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: false}))
 
 app.use('/api/form', (req,res) => {
     nodemailer.createTestAccount((err,account) => {
@@ -52,7 +50,7 @@ app.use('/api/form', (req,res) => {
 app.use(express.static(path.join('./whole-cell-online-site/build')))
 
 app.get('*', function(_, res) {
-  res.sendFile(path.join('./whole-cell-online-site/build/index.html'), function(err) {
+  res.sendFile(path.join(__dirname, './whole-cell-online-site/build/index.html'), function(err) {
     if (err) {
       res.status(500).send(err)
     }

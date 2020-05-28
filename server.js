@@ -2,7 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const nodemailer = require('nodemailer')
 const app = express()
-
+const path = require('path')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
@@ -47,6 +47,16 @@ app.use('/api/form', (req,res) => {
           }); 
     })
 })
+
+//serve static assets if in production
+if(process.env.NODE_ENV === 'production'){
+  //set static folder
+  app.use(express.static('whole-cell-online-site/build'))
+
+  app.get('*', (req,res) => {
+    res.sendFile(path.resolve(__dirname, 'whole-cell-online-site', 'build', 'index.html'))
+  })
+}
 
 const PORT = process.env.PORT || 3001
 

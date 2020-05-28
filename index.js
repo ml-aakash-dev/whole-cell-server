@@ -47,10 +47,10 @@ app.use('/api/form', (req,res) => {
           }); 
     })
 })
-app.use(express.static(path.join(__dirname, './whole-cell-online-site/build')))
+app.use(express.static(path.join('./whole-cell-online-site/build')))
 
 app.get('*', function(_, res) {
-  res.sendFile(path.join(__dirname, './whole-cell-online-site/build/index.html'), function(err) {
+  res.sendFile(path.join('./whole-cell-online-site/build/index.html'), function(err) {
     if (err) {
       res.status(500).send(err)
     }

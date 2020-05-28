@@ -4,6 +4,22 @@ const nodemailer = require('nodemailer')
 const app = express()
 const path = require('path')
 
+app.use(express.static('whole-cell-online-site/build'))
+
+  app.get('*', (req,res) => {
+    res.sendFile(path.resolve(__dirname, 'whole-cell-online-site', 'build', 'index.html'))
+  })
+
+//serve static assets if in production
+if(process.env.NODE_ENV === 'production'){
+  //set static folder
+  app.use(express.static('whole-cell-online-site/build'))
+
+  app.get('*', (req,res) => {
+    res.sendFile(path.resolve(__dirname, 'whole-cell-online-site', 'build', 'index.html'))
+  })
+}
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 

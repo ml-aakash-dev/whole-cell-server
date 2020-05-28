@@ -51,10 +51,10 @@ app.use('/api/form', (req,res) => {
 //serve static assets if in production
 if(process.env.NODE_ENV === 'production'){
   //set static folder
-  app.use('/', express.static(path.join(__dirname, './whole-cell-online-site/build')));
+  app.use('/', express.static(path.join(__dirname, 'whole-cell-online-site/build')));
 
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, './whole-cell-online-site/build', 'index.html'));
+    res.sendFile(path.join(__dirname, 'whole-cell-online-site/build', 'index.html'));
   });
 }
 

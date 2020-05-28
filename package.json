@@ -12,7 +12,7 @@
     "server": "nodemon index.js",
     "client": "npm run start --prefix whole-cell-online-site",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "cd whole-cell-online-site && npm install --only=dev && npm install && npm run build"
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "keywords": [],
   "author": "",

@@ -1,6 +1,9 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const nodemailer = require('nodemailer')
+
+const creds = require('./config');
+
 const app = express()
 const path = require('path')
 const PORT = process.env.PORT || 3001
@@ -22,14 +25,14 @@ app.use('/api/form', (req,res) => {
             service: 'gmail',
             host: 'smtp.gmail.com',
             auth: {
-                user: 'ml.aakash.dev@gmail.com',
-                pass: 'ml.aakash786'
+              user: creds.USER,
+              pass: creds.PASS
             }
         })
 
         let mailOptions = {
           from: req.body.email,
-          to: 'ml.aakash.dev@gmail.com',
+          to: creds.USER,
           replyTo: req.body.email,
           subject: 'New Message',
           html: htmlEmail
